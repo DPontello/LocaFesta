@@ -2,11 +2,11 @@
 
 ## 📑 Índice
 
-- [Descrição do Projeto](#📘-descrição-do-projeto)
-- [Principais Funcionalidades](#🛠️-principais-funcionalidades)
-- [Tecnologias Utilizadas](#💻-tecnologias-utilizadas)
-- [Orientador](#👨‍🏫-orientador)
-- [Autores](#👥-autores)
+- [Descrição do Projeto](#-descrição-do-projeto)
+- [Principais Funcionalidades](#️-principais-funcionalidades)
+- [Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [Orientador](#-orientador)
+- [Autores](#-autores)
 
 ## 📘 Descrição do Projeto
 
