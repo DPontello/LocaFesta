@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Principal - Sistema de Gestão</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <nav class="navbar navbar-custom">
+            <div class="container-fluid">
+                <span class="navbar-brand text-white fw-bold">
+                    <i class="fas fa-user-cog me-2"></i>Sistema de Gestão
+                </span>
+                <button class="btn btn-outline-light" onclick="logout()">
+                    <i class="fas fa-sign-out-alt me-2"></i>Sair
+                </button>
+            </div>
+        </nav>
+        
+        <div class="container py-5">
+            <h1 class="page-title text-center mb-5">Painel de Controle</h1>
+            
+            <div class="row justify-content-center g-4">
+                <div class="col-md-4">
+                    <a href="#" class="dashboard-card" onclick="navigateToTable('clientes')">
+                        <i class="fas fa-users dashboard-icon"></i>
+                        <h4 class="fw-bold">Clientes</h4>
+                        <p class="text-muted mb-0">Gerenciar clientes</p>
+                    </a>
+                </div>
+                
+                <div class="col-md-4">
+                    <a href="#" class="dashboard-card" onclick="navigateToTable('equipamentos')">
+                        <i class="fas fa-tools dashboard-icon"></i>
+                        <h4 class="fw-bold">Equipamentos</h4>
+                        <p class="text-muted mb-0">Gerenciar equipamentos</p>
+                    </a>
+                </div>
+                
+                <div class="col-md-4">
+                    <a href="#" class="dashboard-card" onclick="navigateToTable('reservas')">
+                        <i class="fas fa-calendar-alt dashboard-icon"></i>
+                        <h4 class="fw-bold">Reservas</h4>
+                        <p class="text-muted mb-0">Gerenciar reservas</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function navigateToTable(table) {
+            if (table === 'clientes') {
+                window.location.href = 'clientes.html';
+            } else if (table === 'reservas') {
+                window.location.href = 'reservas.html';
+            } else if (table === 'equipamentos') {
+                window.location.href = 'equipamentos.html';
+            }
+        }
+
+        function logout() {
+            alert("Logout realizado");
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
