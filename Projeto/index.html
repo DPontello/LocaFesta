@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciar Clientes - Sistema de Gestão</title>
+    <title>Painel Principal - Sistema de Gestão</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
@@ -13,184 +13,60 @@
         <nav class="navbar navbar-custom">
             <div class="container-fluid">
                 <span class="navbar-brand text-white fw-bold">
-                    <i class="fas fa-users me-2"></i>Sistema de Gestão - Clientes
+                    <i class="fas fa-user-cog me-2"></i>Sistema de Gestão
                 </span>
-                <div>
-                    <button class="btn btn-outline-light me-2" onclick="navigateToMain()">
-                        <i class="fas fa-arrow-left me-2"></i>Voltar
-                    </button>
-                    <button class="btn btn-outline-light" onclick="logout()">
-                        <i class="fas fa-sign-out-alt me-2"></i>Sair
-                    </button>
-                </div>
+                <button class="btn btn-outline-light" onclick="logout()">
+                    <i class="fas fa-sign-out-alt me-2"></i>Sair
+                </button>
             </div>
         </nav>
         
-        <div class="container py-4">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="page-title">Gerenciar Clientes</h1>
-                <button class="btn btn-primary-custom" onclick="showAddClienteModal()">
-                    <i class="fas fa-plus me-2"></i>Adicionar Novo Cliente
-                </button>
-            </div>
+        <div class="container py-5">
+            <h1 class="page-title text-center mb-5">Painel de Controle</h1>
             
-            <!-- Alert para mensagens -->
-            <div id="alertContainer"></div>
-            
-            <div class="table-container">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th><i class="fas fa-hashtag me-2"></i>ID</th>
-                                <th><i class="fas fa-user me-2"></i>Nome</th>
-                                <th><i class="fas fa-id-card me-2"></i>CPF/CNPJ</th>
-                                <th><i class="fas fa-envelope me-2"></i>Email</th>
-                                <th><i class="fas fa-phone me-2"></i>Telefone</th>
-                                <th><i class="fas fa-cogs me-2"></i>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="clientesTableBody">
-                            <tr>
-                                <td colspan="6" class="loading">
-                                    <i class="fas fa-spinner fa-spin me-2"></i>Carregando clientes...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="row justify-content-center g-4">
+                <div class="col-md-4">
+                    <a href="#" class="dashboard-card" onclick="navigateToTable('clientes')">
+                        <i class="fas fa-users dashboard-icon"></i>
+                        <h4 class="fw-bold">Clientes</h4>
+                        <p class="text-muted mb-0">Gerenciar clientes</p>
+                    </a>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Adicionar/Editar Cliente -->
-    <div class="modal fade" id="clienteModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="clienteModalTitle">
-                        <i class="fas fa-user-plus me-2"></i>Adicionar Cliente
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                
+                <div class="col-md-4">
+                    <a href="#" class="dashboard-card" onclick="navigateToTable('equipamentos')">
+                        <i class="fas fa-tools dashboard-icon"></i>
+                        <h4 class="fw-bold">Equipamentos</h4>
+                        <p class="text-muted mb-0">Gerenciar equipamentos</p>
+                    </a>
                 </div>
-                <div class="modal-body">
-                    <form id="clienteForm">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="nomeCliente" class="form-label">
-                                    <i class="fas fa-user me-2"></i>Nome Completo *
-                                </label>
-                                <input type="text" class="form-control" id="nomeCliente" 
-                                       placeholder="Digite o nome completo" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="cpfCnpjCliente" class="form-label">
-                                    <i class="fas fa-id-card me-2"></i>CPF/CNPJ *
-                                </label>
-                                <input type="text" class="form-control" id="cpfCnpjCliente" 
-                                       placeholder="000.000.000-00 ou 00.000.000/0000-00" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="emailCliente" class="form-label">
-                                    <i class="fas fa-envelope me-2"></i>Email *
-                                </label>
-                                <input type="email" class="form-control" id="emailCliente" 
-                                       placeholder="exemplo@email.com" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="telefoneCliente" class="form-label">
-                                    <i class="fas fa-phone me-2"></i>Telefone *
-                                </label>
-                                <input type="tel" class="form-control" id="telefoneCliente" 
-                                       placeholder="(00) 00000-0000" required>
-                            </div>
-                        </div>
-                        <div class="text-muted small mb-3">
-                            <i class="fas fa-info-circle me-2"></i>
-                            Todos os campos marcados com * são obrigatórios
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-custom" data-bs-dismiss="modal">
-                        <i class="fas fa-times me-2"></i>Cancelar
-                    </button>
-                    <button type="button" class="btn btn-primary-custom" onclick="saveCliente()">
-                        <i class="fas fa-save me-2"></i>Salvar Cliente
-                    </button>
+                
+                <div class="col-md-4">
+                    <a href="#" class="dashboard-card" onclick="navigateToTable('reservas')">
+                        <i class="fas fa-calendar-alt dashboard-icon"></i>
+                        <h4 class="fw-bold">Reservas</h4>
+                        <p class="text-muted mb-0">Gerenciar reservas</p>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-    <script src="/Projeto/js/script.js"></script>
-    <script>    
-        // Função para exibir alertas
-        function showAlert(message, type = 'success') {
-            const alertContainer = document.getElementById('alertContainer');
-            const alertDiv = document.createElement('div');
-            alertDiv.className = `alert alert-${type} alert-custom alert-dismissible fade show`;
-            alertDiv.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
-            
-            alertContainer.appendChild(alertDiv);
-            
-            // Auto remover após 5 segundos
-            setTimeout(() => {
-                if (alertDiv.parentNode) {
-                    alertDiv.remove();
-                }
-            }, 5000);
-        }
-        
-        // Sobrescrever funções do script.js para usar alertas customizados
-        const originalAlert = window.alert;
-        window.alert = function(message) {
-            if (message.includes('sucesso')) {
-                showAlert(message, 'success');
-            } else if (message.includes('erro') || message.includes('Erro')) {
-                showAlert(message, 'danger');
-            } else {
-                originalAlert(message);
+    <script>
+        function navigateToTable(table) {
+            if (table === 'clientes') {
+                window.location.href = 'clientes.html';
+            } else if (table === 'reservas') {
+                window.location.href = 'reservas.html';
+            } else if (table === 'equipamentos') {
+                window.location.href = 'equipamentos.html';
             }
-        };
-        
-        // Adicionar animações de loading
-        function showLoading() {
-            const tbody = document.getElementById('clientesTableBody');
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="6" class="loading">
-                        <i class="fas fa-spinner fa-spin me-2"></i>Carregando clientes...
-                    </td>
-                </tr>
-            `;
         }
-        
-        // Interceptar a função loadClientes para adicionar loading
-        const originalLoadClientes = window.loadClientes;
-        if (originalLoadClientes) {
-            window.loadClientes = async function() {
-                showLoading();
-                try {
-                    await originalLoadClientes();
-                } catch (error) {
-                    document.getElementById('clientesTableBody').innerHTML = `
-                        <tr>
-                            <td colspan="6" class="text-center text-danger">
-                                <i class="fas fa-exclamation-triangle me-2"></i>
-                                Erro ao carregar clientes: ${error.message}
-                            </td>
-                        </tr>
-                    `;
-                }
-            };
+
+        function logout() {
+            alert("Logout realizado");
+            window.location.href = 'login.html';
         }
     </script>
 </body>
