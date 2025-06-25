@@ -1,7 +1,7 @@
-from db import get_db_connection
+from db import getDbConnection
 
-def listar_reservas():
-    conn = get_db_connection()
+def listarReservas():
+    conn = getDbConnection()
     try:
         cursor = conn.cursor(dictionary=True)
         query = """
@@ -19,8 +19,8 @@ def listar_reservas():
         cursor.close()
         conn.close()
 
-def buscar_reserva(id):
-    conn = get_db_connection()
+def buscarReserva(id):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor(dictionary=True)
         query = """
@@ -35,8 +35,8 @@ def buscar_reserva(id):
         cursor.close()
         conn.close()
 
-def criar_reserva(data):
-    conn = get_db_connection()
+def criarReserva(data):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor()
         cursor.execute("""
@@ -48,8 +48,8 @@ def criar_reserva(data):
         cursor.close()
         conn.close()
 
-def atualizar_reserva(id, data):
-    conn = get_db_connection()
+def atualizarReserva(id, data):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor()
         cursor.execute("""
@@ -62,8 +62,8 @@ def atualizar_reserva(id, data):
         cursor.close()
         conn.close()
 
-def excluir_reserva(id):
-    conn = get_db_connection()
+def excluirReserva(id):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor()
         cursor.execute("DELETE FROM reserva WHERE idReserva = %s", (id,))
