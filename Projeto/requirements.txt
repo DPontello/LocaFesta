@@ -4,3 +4,4 @@ mysql-connector-python==8.1.0
 python-dotenv==1.0.0
 coverage==7.5.1
 selenium==4.20.0
+python-dotenv==1.0.0
