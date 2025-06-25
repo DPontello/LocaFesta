@@ -2,6 +2,7 @@
 
 let editingReservaId = null;
 
+// Carrega a lista de reservas na tabela
 async function loadReservas() {
     const tableBody = document.getElementById('reservasTableBody');
     tableBody.innerHTML = `<tr><td colspan="7"><i class="fas fa-spinner fa-spin me-2"></i>Carregando reservas...</td></tr>`;
@@ -35,6 +36,7 @@ async function loadReservas() {
     }
 }
 
+// Abre o modal para adicionar uma reserva novo
 function showAddReservaModal() {
     editingReservaId = null;
     document.getElementById('reservaModalTitle').textContent = 'Adicionar Reserva';
@@ -42,6 +44,7 @@ function showAddReservaModal() {
     new bootstrap.Modal(document.getElementById('reservaModal')).show();
 }
 
+// Abre o modal para editar reserva existente
 async function editReserva(id) {
     try {
         const reserva = await apiRequest(`/reservas/${id}`);
@@ -58,6 +61,7 @@ async function editReserva(id) {
     }
 }
 
+// Salva reserva (novo ou editado)
 async function saveReserva() {
     const idCliente = document.getElementById('idClienteReserva').value.trim();
     const idEquipamento = document.getElementById('idEquipamentoReserva').value.trim();
@@ -88,6 +92,7 @@ async function saveReserva() {
     }
 }
 
+// Deleta reserva
 async function deleteReserva(id) {
     if (confirm('Deseja excluir esta reserva?')) {
         try {
