@@ -2,6 +2,7 @@
 
 let editingClienteId = null;
 
+// Carrega a lista de clientes na tabela
 async function loadClientes() {
     try {
         const clientes = await apiRequest('/clientes');
@@ -26,6 +27,7 @@ async function loadClientes() {
     }
 }
 
+// Abre o modal para adicionar um cliente novo
 function showAddClienteModal() {
     editingClienteId = null;
     document.getElementById('clienteModalTitle').textContent = 'Adicionar Cliente';
@@ -33,6 +35,7 @@ function showAddClienteModal() {
     new bootstrap.Modal(document.getElementById('clienteModal')).show();
 }
 
+// Abre o modal para editar cliente existente
 async function editCliente(id) {
     try {
         editingClienteId = id;
@@ -48,6 +51,7 @@ async function editCliente(id) {
     }
 }
 
+// Salva cliente (novo ou editado)
 async function saveCliente() {
     const nome = document.getElementById('nomeCliente').value.trim();
     const cpfCnpj = document.getElementById('cpfCnpjCliente').value.trim();
@@ -76,6 +80,7 @@ async function saveCliente() {
     }
 }
 
+// Deleta cliente
 async function deleteCliente(id) {
     if (confirm('Deseja excluir este cliente?')) {
         try {
