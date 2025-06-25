@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { input: 'emailCliente', validate: validateEmail, msg: 'E-mail inválido.' },
         { input: 'cpfCnpjCliente', format: formatCpfCnpj, validate: validateCpfCnpj, msg: 'CPF ou CNPJ inválido.' }
     ];
-
     clienteFormHandlers.forEach(({ input, format, validate, msg }) => {
         const el = document.getElementById(input);
         if (el && format) el.addEventListener('input', e => e.target.value = format(e.target.value));
@@ -42,12 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Função genérica para voltar ao painel principal
+// Função para voltar ao painel principal
 function navigateToMain() {
     window.location.href = 'painel.html';
 }
 
-// Simulação de logout (ajuste conforme seu sistema real)
+// Simulação de logout (será implementado futuramente o sistema de login)
 function logout() {
     alert('Logout realizado.');
     window.location.href = 'index.html';
