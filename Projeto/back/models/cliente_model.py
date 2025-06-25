@@ -1,9 +1,8 @@
-from db import get_db_connection
+from db import getDbConnection
 import mysql.connector
-from mysql.connector import Error
 
-def listar_clientes():
-    conn = get_db_connection()
+def listarClientes():
+    conn = getDbConnection()
     try:
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM cliente ORDER BY idCliente")
@@ -12,8 +11,8 @@ def listar_clientes():
         cursor.close()
         conn.close()
 
-def buscar_cliente(id):
-    conn = get_db_connection()
+def buscarCliente(id):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM cliente WHERE idCliente = %s", (id,))
@@ -22,8 +21,8 @@ def buscar_cliente(id):
         cursor.close()
         conn.close()
 
-def criar_cliente(data):
-    conn = get_db_connection()
+def criarCliente(data):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor()
         cursor.execute("""
@@ -37,8 +36,8 @@ def criar_cliente(data):
         cursor.close()
         conn.close()
 
-def atualizar_cliente(id, data):
-    conn = get_db_connection()
+def atualizarCliente(id, data):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor()
         cursor.execute("""
@@ -54,8 +53,8 @@ def atualizar_cliente(id, data):
         cursor.close()
         conn.close()
 
-def excluir_cliente(id):
-    conn = get_db_connection()
+def excluirCliente(id):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor()
         cursor.execute("DELETE FROM cliente WHERE idCliente = %s", (id,))
