@@ -1,8 +1,7 @@
-from db import get_db_connection
-from mysql.connector import Error
+from db import getDbConnection
 
-def listar_equipamentos():
-    conn = get_db_connection()
+def listarEquipamentos():
+    conn = getDbConnection()
     try:
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM equipamento ORDER BY idEquipamento")
@@ -11,8 +10,8 @@ def listar_equipamentos():
         cursor.close()
         conn.close()
 
-def buscar_equipamento(id):
-    conn = get_db_connection()
+def buscarEquipamento(id):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM equipamento WHERE idEquipamento = %s", (id,))
@@ -21,8 +20,8 @@ def buscar_equipamento(id):
         cursor.close()
         conn.close()
 
-def criar_equipamento(data):
-    conn = get_db_connection()
+def criarEquipamento(data):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor()
         query = """
@@ -35,8 +34,8 @@ def criar_equipamento(data):
         cursor.close()
         conn.close()
 
-def atualizar_equipamento(id, data):
-    conn = get_db_connection()
+def atualizarEquipamento(id, data):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor()
         query = """
@@ -50,8 +49,8 @@ def atualizar_equipamento(id, data):
         cursor.close()
         conn.close()
 
-def excluir_equipamento(id):
-    conn = get_db_connection()
+def excluirEquipamento(id):
+    conn = getDbConnection()
     try:
         cursor = conn.cursor()
         cursor.execute("DELETE FROM equipamento WHERE idEquipamento = %s", (id,))
