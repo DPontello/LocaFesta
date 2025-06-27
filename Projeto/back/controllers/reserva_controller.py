@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models import reservaModel
+from validators import validarDadosReserva
 
 reservaBp = Blueprint('reservaBp', __name__)
 
@@ -24,8 +25,19 @@ def getReserva(id):
 def createReserva():
     data = request.get_json()
     required = ['idCliente', 'idEquipamento', 'dataInicio', 'dataFim', 'status']
+
     if not all(field in data for field in required):
         return jsonify({'error': 'Todos os campos são obrigatórios'}), 400
+        
+    erros = validarDadosReserva(
+        data,
+        verificarConflito = lambda idEquipamento, dataInicio, dataFim: 
+            reservaModel.verificarConflitoReserva(idEquipamento, dataInicio, dataFim)
+    )
+
+    if erros:
+        return jsonify({'error': 'Erro de validação', 'detalhes': erros}), 400
+
     try:
         reservaModel.criarReserva(data)
         return jsonify({'success': True, 'message': 'Reserva criada com sucesso'}), 201
@@ -36,8 +48,19 @@ def createReserva():
 def updateReserva(id):
     data = request.get_json()
     required = ['idCliente', 'idEquipamento', 'dataInicio', 'dataFim', 'status']
+
     if not all(field in data for field in required):
         return jsonify({'error': 'Todos os campos são obrigatórios'}), 400
+        
+    erros = validarDadosReserva(
+        data,
+        verificarConflito = lambda idEquipamento, dataInicio, dataFim: 
+            reservaModel.verificarConflitoReserva(idEquipamento, dataInicio, dataFim)
+    )
+
+    if erros:
+        return jsonify({'error': 'Erro de validação', 'detalhes': erros}), 400
+
     try:
         rowcount = reservaModel.atualizarReserva(id, data)
         if rowcount == 0:
