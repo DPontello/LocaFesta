@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models import clienteModel
+from validators import validarDadosCliente
 
 clienteBp = Blueprint('clienteBp', __name__)
 
@@ -24,8 +25,14 @@ def getCliente(id):
 def createCliente():
     data = request.get_json()
     required = ['nomeCliente', 'emailCliente', 'telefoneCliente', 'cpfCnpjCliente']
+
     if not all(field in data for field in required):
         return jsonify({'error': 'Todos os campos são obrigatórios'}), 400
+
+    erros = validarDadosCliente(data)
+    if erros:
+        return jsonify({'error': 'Erro de validação' + erros}), 400
+
     try:
         clienteModel.criarCliente(data)
         return jsonify({'success': True, 'message': 'Cliente cadastrado com sucesso'}), 201
@@ -38,8 +45,14 @@ def createCliente():
 def updateCliente(id):
     data = request.get_json()
     required = ['nomeCliente', 'emailCliente', 'telefoneCliente', 'cpfCnpjCliente']
+
     if not all(field in data for field in required):
         return jsonify({'error': 'Todos os campos são obrigatórios'}), 400
+
+    erros = validarDadosCliente(data)
+    if erros:
+        return jsonify({'error': 'Erro de validação: ' + erros}), 400
+
     try:
         rowcount = clienteModel.atualizarCliente(id, data)
         if rowcount == 0:
