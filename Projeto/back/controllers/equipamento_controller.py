@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models import equipamentoModel
+from validators import validarDadosEquipamento
 
 equipamentoBp = Blueprint('equipamentoBp', __name__)
 
@@ -24,8 +25,14 @@ def getEquipamento(id):
 def createEquipamento():
     data = request.get_json()
     required = ['nomeEquipamento', 'tipoEquipamento', 'valorDiaria']
+
     if not all(field in data for field in required):
         return jsonify({'error': 'Todos os campos são obrigatórios'}), 400
+    
+    erros = validarDadosEquipamento(data)
+    if erros:
+        return jsonify({'error': 'Erro de validação: ' + erros}), 400
+
     try:
         equipamentoModel.criarEquipamento(data)
         return jsonify({'success': True, 'message': 'Equipamento cadastrado com sucesso'}), 201
@@ -36,8 +43,14 @@ def createEquipamento():
 def updateEquipamento(id):
     data = request.get_json()
     required = ['nomeEquipamento', 'tipoEquipamento', 'valorDiaria']
+    
     if not all(field in data for field in required):
         return jsonify({'error': 'Todos os campos são obrigatórios'}), 400
+        
+    erros = validarDadosEquipamento(data)
+    if erros:
+        return jsonify({'error': 'Erro de validação: ' + erros}), 400
+
     try:
         rowcount = equipamentoModel.atualizarEquipamento(id, data)
         if rowcount == 0:
